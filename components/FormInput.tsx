@@ -66,8 +66,9 @@ export function LocationForm() {
       </Form>
       <div className='grid w-full grid-cols-1 justify-items-center gap-4 sm:grid-cols-3 pt-10'>
         {result !== undefined &&
-          result.map((work: Results) => (
+          result.map((work: Results, index: number) => (
             <ResultCards
+              key={index}
               streetAddress={work.streetAddress}
               city={work.city}
               state={work.state}
