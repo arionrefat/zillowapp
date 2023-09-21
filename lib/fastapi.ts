@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchListing(location: string) {
   const fetchSingleLocation = async (loc: string) => {
@@ -11,7 +11,7 @@ export async function fetchListing(location: string) {
         location: loc.trim(),
       },
       headers: {
-        'X-RapidAPI-Key': '0eefa499admsh80cf48581376addp1a7b7cjsnd83bf010ffbc',
+        'X-RapidAPI-Key': '54a781e945msh9fdfa5b7674aaf9p1a42a4jsnd8ba5888b639',
         'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
       },
     };
@@ -25,12 +25,12 @@ export async function fetchListing(location: string) {
     }
   };
 
-  const locations = location.split(",");
+  const locations = location.split(',');
   let aggregatedData: ZillowData = {
     results: [],
     resultsPerPage: 0,
     totalPages: 0,
-    totalResultCount: 0
+    totalResultCount: 0,
   };
 
   for (const loc of locations) {
@@ -41,7 +41,7 @@ export async function fetchListing(location: string) {
       aggregatedData.totalPages += result.totalPages;
       aggregatedData.totalResultCount += result.totalResultCount;
     } else {
-      console.warn("Unexpected data format:", result);
+      console.warn('Unexpected data format:', result);
     }
     await delay(2000);
   }
