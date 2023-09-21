@@ -8,7 +8,7 @@ export async function fetchListing(location: string) {
       location,
     },
     headers: {
-      'X-RapidAPI-Key': '46c297bf4dmshe49fe5ae83bc3c0p18e672jsn844834a3d6b5',
+      'X-RapidAPI-Key': '0eefa499admsh80cf48581376addp1a7b7cjsnd83bf010ffbc',
       'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
     },
   };
