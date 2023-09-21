@@ -53,7 +53,7 @@ export function LocationForm() {
             name='address'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Enter your desired Address</FormLabel>
+                <FormLabel>Enter your desired ZipCode</FormLabel>
                 <FormControl>
                   <Input placeholder='Enter your ZipCode' {...field} />
                 </FormControl>
