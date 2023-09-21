@@ -1,24 +1,52 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export async function fetchListing(location: string) {
-  const options: AxiosRequestConfig = {
-    method: 'GET',
-    url: 'https://zillow56.p.rapidapi.com/search',
-    params: {
-      location,
-    },
-    headers: {
-      'X-RapidAPI-Key': '0eefa499admsh80cf48581376addp1a7b7cjsnd83bf010ffbc',
-      'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
-    },
+  const fetchSingleLocation = async (loc: string) => {
+    const options: AxiosRequestConfig = {
+      method: 'GET',
+      url: 'https://zillow56.p.rapidapi.com/search',
+      params: {
+        location: loc.trim(),
+      },
+      headers: {
+        'X-RapidAPI-Key': '0eefa499admsh80cf48581376addp1a7b7cjsnd83bf010ffbc',
+        'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
+      },
+    };
+    try {
+      const response: AxiosResponse = await axios.request(options);
+      const data: ZillowData = response.data;
+      return data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   };
-  try {
-    const response: AxiosResponse = await axios.request(options);
-    const data: ZillowData = response.data;
-    return data;
-  } catch (error) {
-    console.error(error);
+
+  const locations = location.split(",");
+  let aggregatedData: ZillowData = {
+    results: [],
+    resultsPerPage: 0,
+    totalPages: 0,
+    totalResultCount: 0
+  };
+
+  for (const loc of locations) {
+    const result = await fetchSingleLocation(loc);
+    if (result && Array.isArray(result.results)) {
+      aggregatedData.results = [...aggregatedData.results, ...result.results];
+      aggregatedData.resultsPerPage += result.resultsPerPage;
+      aggregatedData.totalPages += result.totalPages;
+      aggregatedData.totalResultCount += result.totalResultCount;
+    } else {
+      console.warn("Unexpected data format:", result);
+    }
+    await delay(2000);
   }
+
+  return aggregatedData;
 }
 
 export interface ListingSubType {
