@@ -1,10 +1,12 @@
 import * as React from 'react';
 
 import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { fetchListingUrl } from '@/lib/fastapi';
+import { useState } from 'react';
 
 type ListingProps = {
   streetAddress: string;
@@ -18,18 +20,22 @@ type ListingProps = {
 };
 
 export function ResultCards(props: ListingProps) {
+  const [loading, setLoading] = useState(false);
   return (
     <Card
       className='w-[350px] rounded-lg shadow-lg overflow-hidden cursor-pointer'
       onClick={async () => {
+        setLoading(true);
         const fetchedResult = await fetchListingUrl(props.zpid);
+        setLoading(false);
         window.open(`https://www.zillow.com/${fetchedResult}`, '_blank');
       }}
     >
-      <CardHeader className='p-4'>
+      <CardHeader className=' flex flex-row justify-between'>
         <CardTitle className='text-2xl font-bold'>
           {props.streetAddress}
         </CardTitle>
+        {loading && <Loader2 className='mr-6 animate-spin' />}
       </CardHeader>
       <div className='relative'>
         <Image
