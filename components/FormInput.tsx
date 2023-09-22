@@ -1,5 +1,6 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
@@ -35,13 +36,17 @@ export function LocationForm() {
 
   const [result, setResult] = useState<Results[] | undefined>();
 
+  const [loading, setLoading] = useState(false);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true); // Start loading
     const fetchedResult = await fetchListing(values.address);
     const filteredResult = fetchedResult?.results.filter((work: Results) => {
       return work.daysOnZillow > 90;
     });
     setResult(filteredResult);
     console.log(filteredResult);
+    setLoading(false); // End loading
   }
 
   return (
@@ -61,7 +66,10 @@ export function LocationForm() {
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button type='submit'>
+            {loading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
+            Submit
+          </Button>
         </form>
       </Form>
       <div className='grid w-full grid-cols-1 justify-items-center gap-4 sm:grid-cols-3 pt-10'>
@@ -79,9 +87,7 @@ export function LocationForm() {
               zpid={work.zpid}
             />
           ))}
-        {result?.length === 0 && (
-          <h1>Currently No Listings currently under 90 days</h1>
-        )}
+        {result?.length === 0 && <h1>Currently No Listings available</h1>}
       </div>
     </div>
   );

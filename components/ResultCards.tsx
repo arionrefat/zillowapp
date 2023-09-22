@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { fetchListingUrl } from '@/lib/fastapi';
 
@@ -21,15 +21,6 @@ type ListingProps = {
 
 export function ResultCards(props: ListingProps) {
   const [result, setResult] = useState<string>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedResult = await fetchListingUrl(props.zpid);
-      setResult(fetchedResult);
-    };
-
-    fetchData();
-  }, [result]);
 
   return (
     <Card
