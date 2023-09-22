@@ -11,8 +11,8 @@ export async function fetchListing(location: string) {
         location: loc.trim(),
       },
       headers: {
-        'X-RapidAPI-Key': 'bb3f0e098bmsh5017b7173122774p197096jsna159f9f61e30',
-        'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
+    'X-RapidAPI-Key': '192570e093mshee40d048ab350d3p1eb62cjsnfd7995fcb724',
+    'X-RapidAPI-Host': 'zillow56.p.rapidapi.com'
       },
     };
     try {
@@ -105,7 +105,7 @@ export async function fetchListingUrl(zpid: string) {
     url: 'https://zillow56.p.rapidapi.com/property',
     params: { zpid },
     headers: {
-      'X-RapidAPI-Key': 'bb3f0e098bmsh5017b7173122774p197096jsna159f9f61e30',
+      'X-RapidAPI-Key': '192570e093mshee40d048ab350d3p1eb62cjsnfd7995fcb724',
       'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
     },
   };
