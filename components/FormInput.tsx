@@ -87,7 +87,9 @@ export function LocationForm() {
               zpid={work.zpid}
             />
           ))}
-        {result?.length === 0 && <h1>Currently No Listings available</h1>}
+        {result?.length === 0 && (
+          <h1>No properties are available with the given criteria</h1>
+        )}
       </div>
     </div>
   );
