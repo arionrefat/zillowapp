@@ -11,7 +11,7 @@ export async function fetchListing(location: string) {
         location: loc.trim(),
       },
       headers: {
-        'X-RapidAPI-Key': '54a781e945msh9fdfa5b7674aaf9p1a42a4jsnd8ba5888b639',
+        'X-RapidAPI-Key': 'bb3f0e098bmsh5017b7173122774p197096jsna159f9f61e30',
         'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
       },
     };
@@ -89,7 +89,7 @@ export interface Results {
   taxAssessedValue?: number;
   zestimate?: number;
   zipcode: string;
-  zpid: number;
+  zpid: string;
 }
 
 export interface ZillowData {
@@ -97,4 +97,23 @@ export interface ZillowData {
   resultsPerPage: number;
   totalPages: number;
   totalResultCount: number;
+}
+
+export async function fetchListingUrl(zpid: string) {
+  const options: AxiosRequestConfig = {
+    method: 'GET',
+    url: 'https://zillow56.p.rapidapi.com/property',
+    params: { zpid },
+    headers: {
+      'X-RapidAPI-Key': 'bb3f0e098bmsh5017b7173122774p197096jsna159f9f61e30',
+      'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
+    },
+  };
+  try {
+    const response: AxiosResponse = await axios.request(options);
+    const data: string = response.data.hdpUrl;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 }
