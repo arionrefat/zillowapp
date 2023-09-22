@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -39,14 +38,13 @@ export function LocationForm() {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true); // Start loading
+    setLoading(true);
     const fetchedResult = await fetchListing(values.address);
     const filteredResult = fetchedResult?.results.filter((work: Results) => {
       return work.daysOnZillow > 90;
     });
     setResult(filteredResult);
-    console.log(filteredResult);
-    setLoading(false); // End loading
+    setLoading(false);
   }
 
   return (
