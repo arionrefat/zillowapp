@@ -23,18 +23,21 @@ export function ResultCards(props: ListingProps) {
   const [result, setResult] = useState<string>();
 
   useEffect(() => {
-  }, [result]);
+    const fetchData = async () => {
+      const fetchedResult = await fetchListingUrl(props.zpid);
+      setResult(fetchedResult);
+    };
 
-  async function onSubmit(values: string) {
-    const fetchedResult = await fetchListingUrl(values);
-    setResult(fetchedResult as string);
-    console.log(result);
-  }
+    fetchData();
+  }, [result]);
 
   return (
     <Card
       className='w-[350px] rounded-lg shadow-lg overflow-hidden'
-      onClick={() => onSubmit(props.zpid)}
+      onClick={async () => {
+        const fetchedResult = await fetchListingUrl(props.zpid);
+        setResult(fetchedResult);
+      }}
     >
       <Link href={`https://www.zillow.com/${result}`}>
         <CardHeader className='p-4'>

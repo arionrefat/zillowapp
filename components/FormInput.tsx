@@ -65,7 +65,7 @@ export function LocationForm() {
         </form>
       </Form>
       <div className='grid w-full grid-cols-1 justify-items-center gap-4 sm:grid-cols-3 pt-10'>
-        {result !== undefined ? (
+        {result !== undefined &&
           result.map((work: Results, index: number) => (
             <ResultCards
               key={index}
@@ -78,8 +78,8 @@ export function LocationForm() {
               imgSrc={work.imgSrc}
               zpid={work.zpid}
             />
-          ))
-        ) : (
+          ))}
+        {result?.length === 0 && (
           <h1>Currently No Listings currently under 90 days</h1>
         )}
       </div>
