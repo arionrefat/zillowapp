@@ -105,7 +105,7 @@ export async function fetchListingUrl(zpid: string) {
     url: 'https://zillow56.p.rapidapi.com/property',
     params: { zpid },
     headers: {
-      'X-RapidAPI-Key': '980cabe76emshc7d103917336256p16007bjsnffec2c904bb7',
+        'X-RapidAPI-Key': '91f66d2f09msh8dc35b159089680p104960jsn5d64660af0fb',
       'X-RapidAPI-Host': 'zillow56.p.rapidapi.com',
     },
   };
